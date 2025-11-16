@@ -24,18 +24,20 @@ logging.getLogger('cmdstanpy').setLevel(logging.ERROR)
 # ===========================================
 # PATH MODEL
 # ===========================================
-BASE_DIR = r"C:\Games\UPI Kampus Serang\Tugas\Semester 5\ASIK\WEBSITE"
+# Menggunakan path relatif agar bisa di-deploy di server manapun
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Prophet
 PROPHET_MODEL_PATH = os.path.join(BASE_DIR, "prophet_models.pkl")
 DATA_BERSIH = os.path.join(BASE_DIR, "data_bersih_model_ready.csv")
 
 # Model Input
-MODEL_INPUT_PATH = "model_stok_ikan_baru.pkl"
-PREPROCESSOR_PATH = "preprocessor_stok_ikan_baru.pkl"
+MODEL_INPUT_PATH = os.path.join(BASE_DIR, "model_stok_ikan_baru.pkl")
+PREPROCESSOR_PATH = os.path.join(BASE_DIR, "preprocessor_stok_ikan_baru.pkl")
 
 # --- BARU: KONFIGURASI DATABASE ---
-app.config['SECRET_KEY'] = 'kunci-rahasia-anda-yang-sangat-aman-ganti-ini' 
+# Menggunakan environment variable untuk security, fallback ke default untuk development
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'kunci-rahasia-anda-yang-sangat-aman-ganti-ini') 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'ikan.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -638,5 +640,9 @@ if __name__ == '__main__':
         print("Tabel 'ProduksiIkan', 'DataKapal', dan 'DataHarian' sudah siap.")
     # -----------------------------------------------------------------
     
-    print("\nServer Flask siap dijalankan...")
-    app.run(debug=True)
+    # Konfigurasi untuk production (Render) dan development
+    port = int(os.environ.get('PORT', 5000))
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    
+    print(f"\nServer Flask siap dijalankan di port {port}...")
+    app.run(host='0.0.0.0', port=port, debug=debug_mode)
