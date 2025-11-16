@@ -93,6 +93,17 @@ class DataHarian(db.Model):
 # ------------------------------------
 
 # ===========================================
+# INISIALISASI DATABASE
+# ===========================================
+# Buat tabel database saat aplikasi dimuat (untuk development dan production)
+with app.app_context():
+    try:
+        db.create_all()
+        print("✓ Database tables initialized: ProduksiIkan, DataKapal, DataHarian")
+    except Exception as e:
+        print(f"⚠ Warning: Error initializing database tables: {e}")
+
+# ===========================================
 # LOAD MODEL PREDIKSI INPUT
 # ===========================================
 # (Kode RF/OHE Anda tetap sama)
@@ -633,13 +644,6 @@ def laporan_tahunan():
 # RUN SERVER (DIMODIFIKASI)
 # ===========================================
 if __name__ == '__main__':
-    # --- BARU: Buat tabel database saat aplikasi pertama kali dijalankan ---
-    with app.app_context():
-        print("Mengecek dan membuat tabel database (jika diperlukan)...")
-        db.create_all()
-        print("Tabel 'ProduksiIkan', 'DataKapal', dan 'DataHarian' sudah siap.")
-    # -----------------------------------------------------------------
-    
     # Konfigurasi untuk production (Render) dan development
     port = int(os.environ.get('PORT', 5000))
     debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
