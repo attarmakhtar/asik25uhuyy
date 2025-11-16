@@ -7,51 +7,45 @@ __pycache__/
 env/
 venv/
 ENV/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Flask
-instance/
-.webassets-cache
-
-# Environment variables
-.env
 .venv
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
+
+# Environment
+.env
+.env.local
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Database (jika ingin exclude dari git, uncomment baris berikut)
-# *.db
-# *.sqlite
-# *.sqlite3
-# Catatan: ikan.db bisa di-ignore jika kosong (akan dibuat otomatis di Render)
-# ikan.db
+# Model files (jika terlalu besar untuk git)
+# Uncomment jika model files tidak perlu di-commit
+# *.pkl
+# *.joblib
+# *.json (untuk model)
 
 # Logs
 *.log
 
-# Node modules (jika ada)
+# Node.js (tidak digunakan di project ini)
 node_modules/
+package-lock.json
 
+# Data mentah (tidak diperlukan untuk deployment)
+Data Produksi Perikanan Tangkap*.xlsx
+Data Produksi Perikanan Tangkap*.csv
+
+# Script development (tidak diperlukan untuk deployment)
+step_*.py
+train_*.py
+cleaning*.py
