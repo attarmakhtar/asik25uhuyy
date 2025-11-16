@@ -28,9 +28,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application files
 COPY . .
 
-# Expose port
-EXPOSE $PORT
+# Expose port (Railway will set PORT at runtime, use default 5000 for EXPOSE)
+EXPOSE 5000
 
-# Run gunicorn
-CMD gunicorn app:app --bind 0.0.0.0:$PORT
+# Run gunicorn with PORT from environment variable (Railway provides this)
+# Use shell form to allow variable expansion at runtime
+CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-5000}"]
 
