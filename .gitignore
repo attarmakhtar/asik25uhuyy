@@ -46,6 +46,8 @@ Thumbs.db
 # *.db
 # *.sqlite
 # *.sqlite3
+# Catatan: ikan.db bisa di-ignore jika kosong (akan dibuat otomatis di Render)
+# ikan.db
 
 # Logs
 *.log

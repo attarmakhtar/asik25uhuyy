@@ -3,9 +3,11 @@ services:
     name: asik-website
     env: python
     pythonVersion: 3.11.9
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
     envVars:
       - key: FLASK_DEBUG
         value: False
+      - key: SECRET_KEY
+        generateValue: true
 

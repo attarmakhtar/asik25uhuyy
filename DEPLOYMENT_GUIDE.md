@@ -51,8 +51,13 @@ git push origin main
 - **Name:** (nama aplikasi Anda, misalnya: "asik-website")
 - **Environment:** Python 3
 - **Build Command:** `pip install -r requirements.txt`
-- **Start Command:** (otomatis terdeteksi dari Procfile: `gunicorn app:app`)
+- **Start Command:** `gunicorn app:app` (WAJIB DIISI - ini command untuk menjalankan aplikasi)
 - **Plan:** Pilih Free tier atau sesuai kebutuhan
+
+**Catatan Start Command:**
+- Format: `gunicorn app:app`
+- `app:app` = file `app.py` dengan instance Flask bernama `app`
+- Jika Render meminta format dengan port, gunakan: `gunicorn --bind 0.0.0.0:$PORT app:app`
 
 ### 4. Environment Variables
 
