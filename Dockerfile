@@ -32,6 +32,6 @@ COPY . .
 EXPOSE 5000
 
 # Run gunicorn with PORT from environment variable (Railway provides this)
-# Use shell form to allow variable expansion at runtime
-CMD ["sh", "-c", "gunicorn app:app --bind 0.0.0.0:${PORT:-5000}"]
+# Railway automatically sets PORT, so we use shell form for variable expansion
+CMD sh -c "gunicorn app:app --bind 0.0.0.0:\${PORT:-5000}"
 
