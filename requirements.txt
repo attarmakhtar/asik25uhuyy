@@ -10,6 +10,4 @@ gunicorn==21.2.0
 cmdstanpy==1.1.0
 setuptools==75.1.0
 wheel==0.45.1
-cython==3.0.10
-pystan==2.19.1.1
 packaging>=21.0
